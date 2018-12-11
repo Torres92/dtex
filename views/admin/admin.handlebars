@@ -113,8 +113,8 @@
                               <td>
                                 <form method="post" action="/admin/assign/{{_id}}"> 
                                   <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Asigna un conductor</label>
-                                    <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                                    <label>Asigna un conductor</label>
+                                    <select class="form-control" name="driver">
                                       {{#each ../dusers}}
                                       <option>{{name}}</option>
                                       {{/each}}
@@ -285,12 +285,12 @@
                       {{else}}
                           <form method="post" action="/admin/obs/{{_id}}"> 
                           <div class="form-group">
-                            <textarea name="comment" id="" class="form-control" cols="80" placeholder="Sea lo más especifico por favor"></textarea>
+                            <textarea name="comment" class="form-control" cols="80" placeholder="Sea lo más especifico por favor"></textarea>
 
                           </div>
                             s/
                           <div class="form-group">
-                            <input type="number" class="form-control" placeholder="Agregar incremento" name="raise" id="raise">
+                            <input type="number" class="form-control" placeholder="Agregar incremento" name="raise">
                           </div>
                           <div class="right-w3l">
                             <input type="submit" class="form-control" value="Agregar">
@@ -442,8 +442,8 @@
                   desde: <input type="number" min="1" name="startDay" max="31" required="">/<input type="number" name="currentMonth" min="1" max="12" required="">
                   hasta: <input type="number" min="1" name="lastDay" max="31" required="">/<input type="number" name="lastMonth" min="1" max="12" required=""><br><br>
                   <span class="text-light">dia/mes del cual quiere generar el reporte</span><br>
-                  <label for="exampleFormControlSelect2">A nombre de:</label>
-                  <select class="form-control" name="company" id="exampleFormControlSelect2">
+                  <label >A nombre de:</label>
+                  <select class="form-control" name="company" >
                     {{#each users}}
                     <option>{{name}}</option>
                     {{/each}}
@@ -517,18 +517,18 @@
             <input type="text" class="form-control" placeholder="Telefono de contacto" name="tlf" required="">
           </div>
           <div class="form-group">
-            <label for="recipient-email" class="col-form-label">Email</label>
+            <label for="recipienta-email" class="col-form-label">Email</label>
             <input type="email" class="form-control" placeholder="Email" name="email" id="recipienta-email" required="">
           </div>
            <div class="form-group">
-          <label for="exampleFormControlSelect1">Elige un rol</label>
-          <select class="form-control" name="role" id="exampleFormControlSelect1" required="">
+          <label for="exampleFormControlSelect142">Elige un rol</label>
+          <select class="form-control" name="role" id="exampleFormControlSelect142" required="">
             <option>EMPRESA</option>
           </select>
         </div>
           <div class="form-group">
             <label for="password1" class="col-form-label">Contraseña:</label>
-            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
+            <input type="password" class="form-control" placeholder="Password" name="password" required="">
           </div>
           <div class="form-group">
             <label for="password2" class="col-form-label">Confirma Contraseña:</label>
@@ -572,7 +572,7 @@
               <input type="text" class="form-control" placeholder="Username" name="username" required="">
             </div>
             <div class="form-group">
-              <label for="recipient-name" class="col-form-label">DNI:</label>
+              <label for="recipienta-rname" class="col-form-label">DNI:</label>
               <input type="text" class="form-control" placeholder="Inserte DNI" name="dni" id="recipienta-rname" required="">
             </div>
             <div class="form-group">
@@ -580,22 +580,22 @@
               <input type="text" class="form-control" placeholder="Telefono de contacto" name="tlf" required="">
             </div>
             <div class="form-group">
-              <label for="recipient-email" class="col-form-label">Email</label>
+              <label for="recipient-demail" class="col-form-label">Email</label>
               <input type="email" class="form-control" placeholder="Email" name="email" id="recipient-demail" required="">
             </div>
              <div class="form-group">
-            <label for="exampleFormControlSelect1">Elige un rol</label>
+            <label for="exampleFormControlSelect12">Elige un rol</label>
             <select class="form-control" name="role" id="exampleFormControlSelect12" required="">
               <option>CONDUCTOR</option>
             </select>
           </div>
             <div class="form-group">
-              <label for="password1" class="col-form-label">Contraseña:</label>
-              <input type="password" class="form-control" placeholder="Password" name="password" id="password3" required="">
+              <label for="password" class="col-form-label">Contraseña:</label>
+              <input type="password" class="form-control" placeholder="Password" name="password" required="">
             </div>
             <div class="form-group">
               <label for="password2" class="col-form-label">Confirma Contraseña:</label>
-              <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password4" required="">
+              <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password2" required="">
             </div>
             <!--
             <div class="sub-w3l">

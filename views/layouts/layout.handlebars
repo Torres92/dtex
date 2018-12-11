@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DT express || Tu mejor servicio de entregas</title>
+    <!-- Meta tag Keywords -->
+  <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+  <meta charset="utf-8">
+  <meta name="keywords" />
+  <script type="application/x-javascript">
+    addEventListener("load", function () {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+  <!--// Meta tag Keywords -->
+  <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"/>
+
+  <link rel="stylesheet" href="/css/owl.carousel.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/owl.theme.css" type="text/css" media="all">
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/bootstrap.css"> <!-- Bootstrap-Core-CSS -->
+  <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" /> <!-- Style-CSS --> 
+
+  <link rel="stylesheet" href="/css/fontawesome-all.css"> <!-- Font-Awesome-Icons-CSS -->
+  <!-- //css files -->
+
+
+  <!-- web-fonts -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+  <!-- //web-fonts -->
+  
+</head>
+<body>
+	
+  <div class="top-bar_sub_w3layouts sticky-top container-fluid">
+    <div class="row">
+              
+              <div class="col-md-4 col-sm-6 log-icons mt-2">
+                <p class="py-2"><i class="fas fa-phone"></i> Nro Contacto : 935 768 202</p>
+              </div>
+              
+              <div class="col-md-4 col-sm-6 logo">
+                <a class="navbar-brand" href="/">
+                  <i class="fa fa-motorcycle"></i> DT express</a>
+              </div>
+              
+              
+              {{#if user}}
+
+        <div class="col-md-4 top-forms mt-md-3 mt-2 mb-md-0 mb-3">
+          
+          <span class="mx-lg-4 mx-md-2  mx-1 navbar navbar-expand-lg">
+                <button class="navbar-toggler mx-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                  
+                <div class="navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mx-auto">
+                    {{#if user.admin}} 
+                      <li class="nav-item">
+                        <a class="nav-link" href="/admin" >
+                        <i class="fas fa-user"></i>Dashboard</a>
+                      </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                       <i class="fas fa-user"></i>Registrar
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a data-toggle="modal" data-target="#exampleModal1" class="dropdown-item text-center" href="#">Empresa</a>
+                        <a data-toggle="modal" data-target="#exampleModal2" class="dropdown-item text-center" href="#">Conductor</a>
+
+                      </div>
+                    </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="/users/logout" >
+                      <i class="fas fa-user"></i>Cerrar Sesión</a>
+                    </li>
+
+                    {{/if}}
+                    {{#if user.company}}
+                      <li class="nav-item">
+                        <a class="nav-link" href="/company" >
+                        <i class="fas fa-user"></i>Dashboard</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/users/logout" >
+                        <i class="fas fa-user"></i>Cerrar Sesión</a>
+                      </li>
+                     {{/if}}
+                    {{#if user.driver}}
+                      <li class="nav-item">
+                        <a class="nav-link" href="/driver" >
+                        <i class="fas fa-user"></i>Dashboard</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/users/logout" >
+                        <i class="fas fa-user"></i>Cerrar Sesión</a>
+                      </li>
+                    {{/if}}
+                  </ul>
+
+                </div>
+          </span>
+
+        </div>
+
+                    {{else}}
+
+        
+
+            <div class="col-md-4 top-forms mt-md-3 mt-2 mb-md-0 mb-3">
+              <span class="mx-lg-4 mx-md-2  mx-1">
+                <a data-toggle="modal" aria-pressed="false" href="#" data-target="#exampleModal">
+                  <i class="fas fa-lock"></i> Iniciar Sesión</a>
+              </span>
+            </div>
+            {{/if}}
+    </div>
+  </div>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="container">
+            {{#if success_msg}}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{success_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {{/if}}
+
+            {{#if error_msg}}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{error_msg}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+            {{/if}}
+
+            {{#if error}}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{error}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+            {{/if}}
+            {{#if errors}}
+              {{#each errors}}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>{{msg}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              {{/each}}
+            {{/if}}
+          </div>
+
+          {{{body}}}
+        </div>
+      
+    </div>    
+  <!-- js-scripts -->   
+
+  <!-- js -->
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.js"></script> <!-- Necessary-JavaScript-File-For-Bootstrap --> 
+  <!-- //js -->
+  
+  <!-- carousel -->
+  <script src="/js/owl.carousel.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 1,
+            nav: true
+          },
+          600: {
+            items: 1,
+            nav: false
+          },
+          900: {
+            items: 2,
+            nav: false
+          },
+          1000: {
+            items: 3,
+            nav: true,
+            loop: false,
+            margin: 20
+          }
+        }
+      })
+    })
+  </script>
+  <!-- //carousel -->
+
+  <!--slider-->
+  <script src="/js/responsiveslides.min.js"></script>
+  <script>
+    $(function () {
+      // Slideshow 1
+      $("#slider1").responsiveSlides({
+        auto: true,
+        pager: true,
+        nav: true,
+        speed: 500,
+        namespace: "centered-btns"
+      });
+    });
+  </script>
+  <!--//slider-->
+
+  <!-- start-smoth-scrolling -->
+  <script src="/js/SmoothScroll.min.js"></script>
+  <script type="text/javascript" src="/js/move-top.js"></script>
+  <script type="text/javascript" src="/js/easing.js"></script>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){   
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+      });
+    });
+  </script>
+  <!-- here stars scrolling icon -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      /*
+        var defaults = {
+        containerID: 'toTop', // fading element id
+        containerHoverID: 'toTopHover', // fading element hover id
+        scrollSpeed: 1200,
+        easingType: 'linear' 
+        };
+      */
+                
+      $().UItoTop({ easingType: 'easeOutQuart' });
+                
+      });
+  </script>
+  <!-- //here ends scrolling icon -->
+  <!-- start-smoth-scrolling -->
+  
+<!-- //js-scripts -->
+
+</body>
+</html>

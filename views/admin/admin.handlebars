@@ -1,0 +1,616 @@
+
+<hr>
+
+{{#if err}}
+  <div class="row">
+            {{err}}
+            {{#each err}}
+            <div class="alert alert-danger">{{err}}</div>
+            {{/each}}
+  </div>          
+{{/if}}
+<div class="contenedor">   
+<!-- PESTAÑAS DE NAVEGACION -->
+  <ul class="nav nav-pills mb-3" id="pills-tab" >
+    <li class="nav-item">
+      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Solicitudes de Servicios 
+        
+        <span class="badge badge-light">{{length}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+      
+      Servicios en proceso
+      <span class="badge badge-light">{{allserlength}}</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="pills-services-tab" data-toggle="pill" href="#pills-services" role="tab" aria-controls="pills-services" aria-selected="false">
+      
+      Servicios Completados
+      <span class="badge badge-light">{{finlength}}</span>
+      </a>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Compañias
+      <span class="badge badge-light">{{clength}}</span>
+      </a>
+      <div class="dropdown-menu">
+        {{#each users}}
+          <a class="dropdown-item" href="/admin/services/{{name}}">{{ name }}</a>
+        {{/each}}
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item nav-link" id="pills-company-tab" data-toggle="pill" href="#pills-company" role="tab" aria-controls="pills-company" aria-selected="false">Todas las compañias<span class="badge badge-light">{{clength}}</span>
+        </a>
+      </div>
+    </li>
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            Conductores
+      <span class="badge badge-light">{{dlength}}</span>
+      </a>
+      <div class="dropdown-menu">
+        {{#each dusers}}
+          <a class="dropdown-item" href="/admin/service/{{name}}">{{ name }}</a>
+        {{/each}}
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item nav-link" id="pills-drivers-tab" data-toggle="pill" href="#pills-drivers" role="tab" aria-controls="pills-drivers" aria-selected="false">Todos los conductores<span class="badge badge-light">{{dlength}}</span>
+        </a>
+      </div>
+    </li>
+    
+
+  </ul>
+
+  <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <a data-toggle="modal" data-target="#modalReporteC" class="dropdown-item text-center text-light" href="#">Empresa</a>
+        <a data-toggle="modal" data-target="#modalReporteD" class="dropdown-item text-center text-light" href="#">Conductor</a>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>Genera reportes
+      </button>
+    </nav>
+  </div>
+  
+
+
+
+<!-- PANEL DE CONTENIDO DE SERVICIOS-->  
+  <div class="tab-content" id="pills-tabContent">
+
+<!-- TODOS LOS SERVICIOS DISPONIBLES sin asignar-->
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        {{#if services }}
+                    <table class="table table-dark table-bordered table-responsive">
+                        <thead>
+                          <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Empresa</th>
+                            <th scope="col">Motorizado</th>
+                            <th scope="col">Origen</th>
+                            <th scope="col">Llegada</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Recojo</th>
+                            <th scope="col">Entrega</th>
+                            <th scope="col">Acción</th>
+                            <th scope="col">Costo del servicio</th>
+                            <th scope="col">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                           {{#each services}}
+                            
+                            <tr>
+                              <td scope="row">{{date.formattedDate}}</td>
+                              <td>{{ meta.applicant }}</td>
+                              <td>
+                                <form method="post" action="/admin/assign/{{_id}}"> 
+                                  <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Asigna un conductor</label>
+                                    <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                                      {{#each ../dusers}}
+                                      <option>{{name}}</option>
+                                      {{/each}}
+                                    </select>
+                                  </div>
+                                  <div class="right-w3l">
+                                    <input type="submit" class="form-control" value="Asignar">
+                                  </div>
+                                </form>
+                              </td>
+                              <td>{{ ori }}</td>
+                              <td>{{ dest }}</td>
+                              <td>{{ desc }}</td>
+                              <td>
+                                En proceso
+                              </td>
+                              <td>
+                                En proceso
+                              </td>  
+                              <td>
+                                <a href="/admin/delete/{{_id}}" onclick="wantoDelete()" class="btn btn-danger" >Eliminar</a>
+                              </td>
+                              <td>
+                                  s/{{price}}
+                              </td>
+                                <!-- PRECIO TOTAL -->
+                                <td>{{comment.newPrice}}</td>
+                            </tr>
+                            
+                          {{/each}}
+                        </tbody>
+
+                      </table>
+        {{else}}
+            <strong> NO HAY SOLICITUDES DE SERVICIOS SIN ASIGNAR ( REVISA LA PESTAÑA DE LOS SERVICIOS EN PROCESO )</strong>
+        {{/if}}
+              
+
+    </div>
+
+<!-- TODOS LOS SERVICIOS ASIGNADOS EN PROCESO-->
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      
+     {{#if allser }}
+
+          <table class="table table-dark table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Empresa</th>
+                  <th scope="col">Motorizado</th>
+                  <th scope="col">Origen</th>
+                  <th scope="col">Llegada</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Recojo</th>
+                  <th scope="col">Entrega</th>
+                  <th scope="col">Observación</th>
+                  <th scope="col">Costo del servicio</th>
+                  <th scope="col">Costo Adicional</th>
+                  <th scope="col">Total</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                 {{#each allser}} 
+                  <tr>
+                    <td scope="row">{{date.formattedDate}}</td>
+                    <td>{{ meta.applicant }}</td>
+                    <td>
+                      {{ meta.driver }} <br>
+                    DNI: {{meta.dni}} <br>
+                    {{#if status }}
+                    {{#unless completed}}
+                      <a href="/admin/unassign/{{_id}}" class="btn btn-danger" >Desasignar</a>
+                    {{/unless}}
+                    {{/if}}
+                    </td>
+                    <td>{{ ori }}</td>
+                    <td>{{ dest }}</td>
+                    <td>{{ desc }}</td>
+                    <td>
+                      {{#if status }}
+                      En proceso
+                      {{else}}
+                       {{ meta.hrRe}}
+                      {{/if}}
+                    </td>
+                    <td>
+                      {{#if completed }}
+                       {{ meta.hrEn}}
+                      {{else}}
+                      En proceso
+                      {{/if}}
+                    </td> 
+                    <td>
+                      {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          Sin observaciones para este servicio 
+                      {{/if}}
+                    </td>
+                    <td>
+                      s/{{price}}
+                    </td>
+                    {{#if comment.contenido}}
+                    <td>+ s/<span class="alert alert-success">{{comment.charge}}</span>
+                    </td>
+                    {{else}}
+                      <td> + s/<span class="alert alert-success">0</span> </td>
+                    {{/if}}
+
+
+                    <!-- PRECIO TOTAL -->
+                    <td>{{comment.newPrice}}</td>
+
+                  </tr>
+                    
+
+                {{/each}}
+              </tbody>
+
+            </table>
+            {{else}}
+              NO HAY SERVICIOS REGISTRADOS HASTA EL MOMENTO
+            {{/if}}
+
+    </div>
+
+<!-- TODOS LOS SERVICIOS COMPLETADOS-->
+    <div class="tab-pane fade" id="pills-services" role="tabpanel" aria-labelledby="pills-services-tab">
+      
+     {{#if seFinished }}
+
+          <table class="table table-dark table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Empresa</th>
+                  <th scope="col">Motorizado</th>
+                  <th scope="col">Origen</th>
+                  <th scope="col">Llegada</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Recojo</th>
+                  <th scope="col">Entrega</th>
+                  <th scope="col">Observación</th>
+                  <th scope="col">Costo del Servicio</th>
+                  <th scope="col">Costo Adicional</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                 {{#each seFinished}} 
+                  <tr>
+                    <td scope="row">{{date.formattedDate}}</td>
+                    <td>{{ meta.applicant }}</td>
+                    <td>
+                    {{ meta.driver }} <br>
+                    DNI: {{meta.dni}} <br>
+                    </td>
+                    <td>{{ ori }}</td>
+                    <td>{{ dest }}</td>
+                    <td>{{ desc }}</td>
+                    <td>{{ meta.hrRe}}</td>
+                    <td>{{ meta.hrEn}}</td> 
+                     <td>
+                      {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          <form method="post" action="/admin/obs/{{_id}}"> 
+                          <div class="form-group">
+                            <textarea name="comment" id="" class="form-control" cols="80" placeholder="Sea lo más especifico por favor"></textarea>
+
+                          </div>
+                            s/
+                          <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Agregar incremento" name="raise" id="raise">
+                          </div>
+                          <div class="right-w3l">
+                            <input type="submit" class="form-control" value="Agregar">
+                          </div>
+                        </form>
+                      {{/if}}
+                    </td>
+                    <td>
+                      s/{{price}}
+                    </td>
+                    <td>
+                      {{#if comment.charge}}
+                      s/<span class="alert alert-success">{{comment.charge}}</span>
+                      {{else}}
+                      s/<span class="alert alert-success">0</span>
+                      {{/if}}
+                    </td>
+                    <td>s/{{comment.newPrice}}</td> 
+
+                  </tr>
+
+                {{/each}}
+              </tbody>
+
+            </table>
+            {{else}}
+              NO HAY SERVICIOS REGISTRADOS HASTA EL MOMENTO
+            {{/if}}
+
+    </div>    
+
+
+
+
+<!-- TODAS LAS COMPAÑIAS -->    
+    <div class="tab-pane fade" id="pills-company" role="tabpanel" aria-labelledby="pills-company-tab">
+      
+      {{#if users}}
+          <table class="table table-dark table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Representante</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">RUC</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Disponible</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                 {{#each users}}
+                  
+                  <tr>
+                    <td scope="row">{{ name }} <br>
+                    </td>
+                    <td>{{ username }}</td>
+                    <td>{{ tlf }}</td>
+                    <td>{{ ruc }}</td>
+                    <td>{{ email }}</td>
+                    <td>{{ role }}</td>
+                    {{#if available }}
+                    <td>ACTIVO</td>  
+                    {{else}}
+                    INACTIVO
+                    {{/if}}
+                    <td>
+                      <a href="/admin/udelete/{{_id}}" onclick="wantoDelete()" class="btn btn-danger" >Eliminar</a>
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+
+            </table>
+                {{else}}
+                <div class="container">
+                  <h2><strong>EN ESTE MOMENTO NO HAY COMPAÑIAS REGISTRADAS</strong></h4>
+                </div>    
+                {{/if}}  
+
+
+    </div>
+
+<!-- TODOS LOS CONDUCTORES -->
+
+    <div class="tab-pane fade" id="pills-drivers" role="tabpanel" aria-labelledby="pills-drivers-tab">
+      
+         {{#if dusers}}
+          <table class="table table-dark table-bordered table-responsive">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Nombre de usuario</th>
+                  <th scope="col">Teléfono</th>
+                  <th scope="col">DNI</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Rol</th>
+                  <th scope="col">Disponible</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                 {{#each dusers}}
+                  
+                  <tr>
+                    <td scope="row">{{ name }} <br>
+                    </td>
+                    <td>{{ username }}</td>
+                    <td>{{ tlf }}</td>
+                    <td>{{ dni }}</td>
+                    <td>{{ email }}</td>
+                    <td>{{ role }}</td>
+                    {{#if available }}
+                    <td>ACTIVO</td>  
+                    {{else}}
+                    INACTIVO
+                    {{/if}}
+                    <td>
+                      <a href="/admin/udelete/{{_id}}" onclick="wantoDelete()" class="btn btn-danger" >Eliminar</a>
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+
+            </table>
+                {{else}}
+                <div class="container">
+                  <h2><strong>EN ESTE MOMENTO NO HAY CONDUCTORES REGISTRADOS</strong></h4>
+                </div>    
+                {{/if}} 
+
+
+    </div>
+
+  </div>
+<!-- Modal reporte compañia -->
+        <div class="modal fade" id="modalReporteC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reportes de servicios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               <form action="/admin/filter" method="post" >
+                  desde: <input type="number" min="1" name="startDay" max="31" required="">/<input type="number" name="currentMonth" min="1" max="12" required="">
+                  hasta: <input type="number" min="1" name="lastDay" max="31" required="">/<input type="number" name="lastMonth" min="1" max="12" required=""><br><br>
+                  <span class="text-light">dia/mes del cual quiere generar el reporte</span><br>
+                  <label for="exampleFormControlSelect2">A nombre de:</label>
+                  <select class="form-control" name="company" id="exampleFormControlSelect2">
+                    {{#each users}}
+                    <option>{{name}}</option>
+                    {{/each}}
+                  </select>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Generar">
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> 
+<!-- Modal reporte conductor-->
+        <div class="modal fade" id="modalReporteD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reportes de servicios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/admin/filter" method="post" >
+                  desde: <input type="number" min="1" name="startDay" max="31" required="">/<input type="number" name="currentMonth" min="1" max="12" required="">
+                  hasta: <input type="number" min="1" name="lastDay" max="31" required="">/<input type="number" name="lastMonth" min="1" max="12" required=""><br><br>
+                  <span class="text-light">dia/mes del cual quiere generar el reporte</span><br>
+                  <label for="exampleFormControlSelect2">A nombre de:</label>
+                  <select class="form-control" name="driver" id="exampleFormControlSelect2">
+                    {{#each dusers}}
+                    <option>{{name}}</option>
+                    {{/each}}
+                  </select>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Generar">
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>         
+
+<!-- REGISTER MODAL COMPANY -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Registra una empresa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/admin/register/company">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Razón Social</label>
+            <input type="text" class="form-control" placeholder="Name" name="name" required="">
+          </div>
+          <div class="form-group">
+            <label>Nombre de usuario</label>
+            <input type="text" class="form-control" placeholder="Username" name="username" required="">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">RUC:</label>
+            <input type="text" class="form-control" placeholder="Inserte RUC" name="ruc" id="recipient-rname" required="">
+          </div>
+          <div class="form-group">
+            <label>Número de contacto</label>
+            <input type="text" class="form-control" placeholder="Telefono de contacto" name="tlf" required="">
+          </div>
+          <div class="form-group">
+            <label for="recipient-email" class="col-form-label">Email</label>
+            <input type="email" class="form-control" placeholder="Email" name="email" id="recipienta-email" required="">
+          </div>
+           <div class="form-group">
+          <label for="exampleFormControlSelect1">Elige un rol</label>
+          <select class="form-control" name="role" id="exampleFormControlSelect1" required="">
+            <option>EMPRESA</option>
+          </select>
+        </div>
+          <div class="form-group">
+            <label for="password1" class="col-form-label">Contraseña:</label>
+            <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
+          </div>
+          <div class="form-group">
+            <label for="password2" class="col-form-label">Confirma Contraseña:</label>
+            <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password2" required="">
+          </div>
+          <!--
+          <div class="sub-w3l">
+            <div class="sub-agile">
+              <input type="checkbox" id="brand2" value="">
+              <label for="brand2" class="mb-3">
+                <span></span>I Accept to the Terms & Conditions</label>
+            </div>
+          </div>
+        -->
+          <div class="right-w3l">
+            <input type="submit" class="form-control" value="Registrar ahora">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+</div>
+<!-- REGISTER MODAL DRIVER--> 
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Register your account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/admin/register/driver">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nombre</label>
+              <input type="text" class="form-control" placeholder="Name" name="name" required="">
+            </div>
+            <div class="form-group">
+              <label>Nombre de usuario</label>
+              <input type="text" class="form-control" placeholder="Username" name="username" required="">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">DNI:</label>
+              <input type="text" class="form-control" placeholder="Inserte DNI" name="dni" id="recipienta-rname" required="">
+            </div>
+            <div class="form-group">
+              <label>Número de contacto</label>
+              <input type="text" class="form-control" placeholder="Telefono de contacto" name="tlf" required="">
+            </div>
+            <div class="form-group">
+              <label for="recipient-email" class="col-form-label">Email</label>
+              <input type="email" class="form-control" placeholder="Email" name="email" id="recipient-demail" required="">
+            </div>
+             <div class="form-group">
+            <label for="exampleFormControlSelect1">Elige un rol</label>
+            <select class="form-control" name="role" id="exampleFormControlSelect12" required="">
+              <option>CONDUCTOR</option>
+            </select>
+          </div>
+            <div class="form-group">
+              <label for="password1" class="col-form-label">Contraseña:</label>
+              <input type="password" class="form-control" placeholder="Password" name="password" id="password3" required="">
+            </div>
+            <div class="form-group">
+              <label for="password2" class="col-form-label">Confirma Contraseña:</label>
+              <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password4" required="">
+            </div>
+            <!--
+            <div class="sub-w3l">
+              <div class="sub-agile">
+                <input type="checkbox" id="brand2" value="">
+                <label for="brand2" class="mb-3">
+                  <span></span>I Accept to the Terms & Conditions</label>
+              </div>
+            </div>
+          -->
+            <div class="right-w3l">
+              <input type="submit" class="form-control" value="Registrar Ahora">
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

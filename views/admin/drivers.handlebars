@@ -1,0 +1,127 @@
+
+
+       {{#if services }}
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Motorizado</th>
+                <th>Origen</th>
+                <th>Llegada</th>
+                <th>Descripcion</th>
+                <th>Recojo</th>
+                <th>Entrega</th>
+                <th>Acción</th>
+                <th>Observación</th>
+                <th>Costo del servicio</th>
+                 <th>Costo Adicional</th>
+                <th>Total</th>
+
+              </tr>
+            </thead>
+            <tbody>
+               {{#each services}}
+                
+                <tr>
+                  <td>{{date.formattedDate}}</td>
+                  <td>{{ meta.applicant }}</td>
+                  <td>
+                     {{#if meta.driver}}
+                      {{meta.driver}} <br>
+                      DNI: {{meta.dni}}
+                      {{#if status }}
+                        {{#unless completed}}
+                        <a href="/admin/unassign/{{_id}}" class="btn btn-danger" >Desasignar</a>
+                        {{/unless}}
+                      {{/if}}
+                    {{else}}
+                      <form method="post" action="/admin/assign/{{_id}}"> 
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Asigna un conductor</label>
+                          <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                            {{#each ../dusers}}
+                            <option>{{name}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                        <div class="right-w3l">
+                          <input type="submit" class="form-control" value="Asignar">
+                        </div>
+                      </form>
+                    {{/if}}
+                  </td>
+                  <td>{{ ori }}
+                  </td>
+                  <td>{{ dest }}</td>
+                  <td>{{ desc }}</td>
+                  <td>
+                    {{#if meta.hrRe}}
+                    {{ meta.hrRe}}
+                    {{else}}
+                    En proceso
+                    {{/if}}
+                  </td>
+                  <td>
+                     {{#if meta.hrEn}}
+                    {{ meta.hrEn}}
+                    {{else}}
+                    En proceso
+                    {{/if}}
+                  </td> 
+                  <td>
+                    {{#if meta.hrRe}}
+                    Este servicio no puede ser eliminado
+                    {{else}}
+                    <a href="/admin/delete/{{_id}}" class="btn btn-danger" >Eliminar</a>
+                    {{/if}}
+                  </td>
+                  <td>
+                    {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          <form method="post" action="/admin/obs/{{_id}}"> 
+                          <div class="form-group">
+                            <textarea name="comment" id="" class="form-control" cols="80" placeholder="Sea lo más especifico por favor"></textarea>
+
+                          </div>
+                            s/
+                          <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Agregar incremento" name="raise" id="raise">
+                          </div>
+                          <div class="right-w3l">
+                            <input type="submit" class="form-control" value="Agregar">
+                          </div>
+                        </form>
+                      {{/if}}
+                  </td>
+                  <td>
+                     s/{{price}}
+                  </td>
+                  <th>
+                    {{#if comment.charge}}
+                  s/{{comment.charge}}
+                     {{else}}
+                     s/0
+                     {{/if}}   
+                  </th>
+                  <th>s/{{comment.newPrice}}</th> 
+                </tr>
+                
+              {{/each}}
+            </tbody>
+
+          </table>
+          {{else}}
+             <div class="col-md-4 mx-auto">
+              <div class="card">
+                <div class="container alert alert-danger">
+                  <h1>NO SE ENCONTRARON SERVICIOS PARA DICHAS FECHAS</h1>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+
+

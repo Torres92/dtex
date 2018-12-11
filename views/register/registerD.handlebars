@@ -1,0 +1,76 @@
+<div class="container mx-auto">
+{{#if user}}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>El nombre de usuario ya ha sido tomado</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+              </div>
+{{/if}}
+{{#if mail}}
+         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>El correo ya ha sido tomado</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+         </div>
+
+{{/if}}
+</div>
+  <div class="col-md-4 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h3>New User</h3>
+      </div>
+      <div class="card-body">
+          <form method="post" action="/admin/register/driver">
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Name" name="name" required="" autofocus>
+              </div>
+              <div class="form-group">
+                <label>Nombre de usuario</label>
+                <input type="text" class="form-control" placeholder="Username" name="username" required="">
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">DNI:</label>
+                <input type="text" class="form-control" placeholder="Inserte DNI" name="dni" id="recipient-rname" required="">
+              </div>
+              <div class="form-group">
+                <label>Número de contacto</label>
+                <input type="text" class="form-control" placeholder="Telefono de contacto" name="tlf" required="">
+              </div>
+              <div class="form-group">
+                <label for="recipient-email" class="col-form-label">Email</label>
+                <input type="email" class="form-control" placeholder="Email" name="email" id="recipient-email" required="">
+              </div>
+               <div class="form-group">
+              <label for="exampleFormControlSelect1">Elige un rol</label>
+              <select class="form-control" name="role" id="exampleFormControlSelect1" required="">
+                <option>CONDUCTOR</option>
+              </select>
+            </div>
+              <div class="form-group">
+                <label for="password1" class="col-form-label">Contraseña:</label>
+                <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="">
+              </div>
+              <div class="form-group">
+                <label for="password2" class="col-form-label">Confirma Contraseña:</label>
+                <input type="password" class="form-control" placeholder="Confirmar Contraseña" name="password2" required="">
+              </div>
+              <!--
+              <div class="sub-w3l">
+                <div class="sub-agile">
+                  <input type="checkbox" id="brand2" value="">
+                  <label for="brand2" class="mb-3">
+                    <span></span>I Accept to the Terms & Conditions</label>
+                </div>
+              </div>
+            -->
+              <div class="right-w3l">
+                <input type="submit" class="form-control btn btn-primary" value="Registrar Ahora">
+              </div>
+          </form>
+        </div>
+  </div>
+</div>

@@ -1,0 +1,237 @@
+
+        
+       {{#if services }}
+
+        <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Motorizado</th>
+                <th>Origen</th>
+                <th>Llegada</th>
+                <th>Descripcion</th>
+                <th>Recojo</th>
+                <th>Entrega</th>
+                <th>Observación</th>
+                <th>Costo del servicio</th>
+                <th>Costo Adicional</th>
+                <th>Total</th>
+                <th>Acción</th>
+
+              </tr>
+            </thead>
+            <tbody>
+               {{#each services}}
+                
+                <tr>
+                  <td>{{date.formattedDate}}</td>
+                  <td>{{ meta.applicant }}</td>
+                  <td>
+                    {{#if meta.driver}}
+                      {{meta.driver}} <br>
+                      DNI: {{meta.dni}}
+                      {{#if status }}
+                        {{#unless completed}}
+                        <a href="/admin/unassign/{{_id}}" class="btn btn-danger" >Desasignar</a>
+                        {{/unless}}
+                      {{/if}}
+                    {{else}}
+                      <form method="post" action="/admin/assign/{{_id}}"> 
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Asigna un conductor</label>
+                          <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                            {{#each ../dusers}}
+                            <option>{{name}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                        <div class="right-w3l">
+                          <input type="submit" class="form-control" value="Asignar">
+                        </div>
+                      </form>
+                    {{/if}}
+                  </td>
+                  <td>{{ ori }}</td>
+                  <td>{{ dest }}</td>
+                  <td>{{ desc }}</td>
+                  <td>
+                      {{#if status }}
+                      En proceso
+                      {{else}}
+                       {{ meta.hrRe}}
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if completed }}
+                       {{ meta.hrEn}}
+                      {{else}}
+                      En proceso
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          Sin observaciones para este servicio 
+                      {{/if}}
+                  </td>
+                  <td>{{price}}</td>
+                  {{#if comment.contenido}}
+                    <td>+ s/{{comment.charge}}</td>
+                    {{else}}
+                      <td> + s/0 </td>
+                    {{/if}}
+
+
+                   <!--  PRECIO TOTAL -->
+                    <td>{{comment.newPrice}}</td>   
+                    <td>
+                     
+                      {{#if status }}
+                      <a href="/admin/delete/{{_id}}" class="btn btn-danger" >Eliminar</a>
+                      {{else}}
+                       Este servicio ya no puede ser eliminado     
+                      {{/if}}
+                    </td>
+                </tr>
+              {{/each}}
+            </tbody>
+
+          </table>
+    {{/if}}
+
+      {{#if filteredServices }}
+      <div id="HTMLtoPDF">
+         <div class="col-md-4 mx-auto"><a data-toggle="modal" data-target="#exampleModal" href="#" class="btn btn-primary">DESCARGAR PDF</a></div>
+        <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Motorizado</th>
+                <th>Origen</th>
+                <th>Llegada</th>
+                <th>Descripcion</th>
+                <th>Recojo</th>
+                <th>Entrega</th>
+                <th>Observación</th>
+                <th>Costo del servicio</th>
+                <th>Costo Adicional</th>
+                <th>Total</th>
+                <th>Acción</th>
+
+              </tr>
+            </thead>
+            <tbody>
+               {{#each filteredServices}}
+                
+                <tr>
+                  <td>{{date.formattedDate}}</td>
+                  <td>{{ meta.applicant }}</td>
+                  <td>
+                    {{#if meta.driver}}
+                      {{meta.driver}} <br>
+                      DNI: {{meta.dni}}
+                      {{#if status }}
+                        {{#unless completed}}
+                        <a href="/admin/unassign/{{_id}}" class="btn btn-danger" >Desasignar</a>
+                        {{/unless}}
+                      {{/if}}
+                    {{else}}
+                      <form method="post" action="/admin/assign/{{_id}}"> 
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Asigna un conductor</label>
+                          <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                            {{#each ../dusers}}
+                            <option>{{name}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                        <div class="right-w3l">
+                          <input type="submit" class="form-control" value="Asignar">
+                        </div>
+                      </form>
+                    {{/if}}
+                  </td>
+                  <td>{{ ori }}</td>
+                  <td>{{ dest }}</td>
+                  <td>{{ desc }}</td>
+                  <td>
+                      {{#if status }}
+                      En proceso
+                      {{else}}
+                       {{ meta.hrRe}}
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if completed }}
+                       {{ meta.hrEn}}
+                      {{else}}
+                      En proceso
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          Sin observaciones para este servicio 
+                      {{/if}}
+                  </td>
+                  <td>{{price}}</td>
+                  {{#if comment.contenido}}
+                    <td>+ s/{{comment.charge}}</td>
+                    {{else}}
+                      <td> + s/0 </td>
+                    {{/if}}
+
+
+                    <!-- PRECIO TOTAL -->
+                    <td>{{comment.newPrice}}</td>   
+                    <td>
+                     
+                      {{#if status }}
+                      <a href="/admin/delete/{{_id}}" class="btn btn-danger" >Eliminar</a>
+                      {{else}}
+                       Este servicio ya no puede ser eliminado     
+                      {{/if}}
+                    </td>
+                </tr>
+              {{/each}}
+            </tbody>
+
+          </table>
+        </div> 
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enhorabuena!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Asegurate de que todos los  <strong>servicios hayan sido completados</strong> o elimina dichos servicios para poder generar el PDF <br>
+                Click en Acepta para continuar
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button ><a href="/admin/pdfGenerator" type="button" class="btn btn-primary">ACEPTAR</a></button>
+              </div>
+            </div>
+          </div>
+        </div> 
+          {{else}}
+          <div class="col-md-4 mx-auto">
+            <div class="card">
+              <div class="container alert alert-danger">
+                <h1>NO SE ENCONTRARON SERVICIOS PARA DICHAS FECHAS</h1>
+              </div>
+            </div>
+          </div>
+          {{/if}}
+
+

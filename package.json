@@ -1,0 +1,34 @@
+{
+  "name": "loginapp",
+  "version": "1.0.0",
+  "description": "dt page",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edgardo K",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "method-override": "^3.0.0",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "^1.9.1",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "pdfkit": "^0.8.3",
+    "pdfmake": "^0.1.39",
+    "voilab-pdf-table": "^0.4.0"
+  }
+}

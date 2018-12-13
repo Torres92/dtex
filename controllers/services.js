@@ -12,77 +12,84 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 exports.createService = async (req, res) => {
 
 			const { name } = req.params;
-			const service = new Service(req.body);
-    		/*var email;
-    		recipients = [];
-			const adminusers = await User.find({"admin": 1});
-			const driverusers = await User.find({"driver": 1});
-			console.log(recipients, adminusers, driverusers);
-			for (var i = adminusers.length - 1; i >= 0; i--) {
-				recipients.push({"email" : `${adminusers[i].email}`});
-			}
-			for (var i = driverusers.length - 1; i >= 0; i--) {
-				recipients.push({"email" : `${driverusers[i].email}`});
-			}
-			console.log(recipients);*/
-    		service.meta.applicant = name;
-			var request = new Date();
-			var weekday = request.getDay();
-			var month = request.getMonth();
-			var month = month + 1;
-			var year = request.getFullYear();
-			var day = request.getDate();
-			var notHour = request.getHours();
-			if( notHour < 5){
-			  var hour = notHour + 19;
-			}else {
-			  var hour = notHour - 5;
-			}	
-			var min = request.getMinutes();
-			if (weekday < 10) {
-				weekday = '0' + weekday;
-			}
-			if (month < 10) {
-				month = '0' + month;
-			}
-			if (day < 10) {
-				day = '0' + day;
-			}
-			if (hour < 10) {
-				hour = '0' + hour;
-			}
-			if (min < 10) {
-				min = '0' + min;
-			}
-			const formattedDate = day + '/' + month + '/' + year + ' - ' + hour + ':' + min; 
-			service.date.request = request;
-			service.date.formattedDate = formattedDate;
-			service.date.day = day;
-			service.date.month = month;
+			try {
+				const service = new Service(req.body);
+	    		/*var email;
+	    		recipients = [];
+				const adminusers = await User.find({"admin": 1});
+				const driverusers = await User.find({"driver": 1});
+				console.log(recipients, adminusers, driverusers);
+				for (var i = adminusers.length - 1; i >= 0; i--) {
+					recipients.push({"email" : `${adminusers[i].email}`});
+				}
+				for (var i = driverusers.length - 1; i >= 0; i--) {
+					recipients.push({"email" : `${driverusers[i].email}`});
+				}
+				console.log(recipients);*/
+	    		service.meta.applicant = name;
+				var request = new Date();
+				var weekday = request.getDay();
+				var month = request.getMonth();
+				var month = month + 1;
+				var year = request.getFullYear();
+				var day = request.getDate();
+				var notHour = request.getHours();
+				if( notHour < 5){
+				  var hour = notHour + 19;
+				}else {
+				  var hour = notHour - 5;
+				}	
+				var min = request.getMinutes();
+				if (weekday < 10) {
+					weekday = '0' + weekday;
+				}
+				if (month < 10) {
+					month = '0' + month;
+				}
+				if (day < 10) {
+					day = '0' + day;
+				}
+				if (hour < 10) {
+					hour = '0' + hour;
+				}
+				if (min < 10) {
+					min = '0' + min;
+				}
+				const formattedDate = day + '/' + month + '/' + year + ' - ' + hour + ':' + min; 
+				service.date.request = request;
+				service.date.formattedDate = formattedDate;
+				service.date.day = day;
+				service.date.month = month;
 
 
-			await service.save();
+				await service.save();
 
-			req.flash('success_msg', 'Servicio solicitado exitosamente');
+				req.flash('success_msg', 'Servicio solicitado exitosamente');
 
 
-			
-			const msg = {
-				  "to": [{
-						"email": "aleph2445@gmail.com"
-					}, {
-						"email": "valverderichard92@gmail.com"
-					}, {
-						"email": "recipient3@example.com"
-					}],
-				  from: 'aleph2445@gmail.com',
-				  subject: 'NUEVA SOLICITUD DE SERVICIOS',
-				  text: 'and easy to do anywhere, even with Node.js',
-				  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-			};
-			sgMail.send(msg);
-			console.log('message sent');
+				
+				const msg = {
+					  "to": [{
+							"email": "aleph2445@gmail.com"
+						}, {
+							"email": "valverderichard92@gmail.com"
+						}, {
+							"email": "recipient3@example.com"
+						}],
+					  from: 'aleph2445@gmail.com',
+					  subject: 'NUEVA SOLICITUD DE SERVICIOS',
+					  text: 'and easy to do anywhere, even with Node.js',
+					  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+				};
+				sgMail.send(msg);
+				console.log('message sent');
+				res.redirect('/company');
+		} catch(e){
+			console.log(e);
+			req.flash('error_msg', 'Ocurrio un error con la base de datos');
 			res.redirect('/company');
+		}
+
 }
 
 
@@ -99,75 +106,86 @@ exports.filterServices = async (req, res, next)=> {
 	this.filteredServices = [];
 	// company logic
 	if(company){
-	var services = await Service.find({'meta.applicant': company, 'completed': true}).sort({"date.request": -1});
-	var startDay = Number(startDay);
-	var lastDay = Number(lastDay);
-	this.dates.push(startDay);
-	this.dates.push(lastDay);
-	this.dates.push(currentMonth);
-	this.dates.push(lastMonth);
-	this.company = company;
-	this.dates.push(company);
+		try{
+			var services = await Service.find({'meta.applicant': company, 'completed': true}).sort({"date.request": -1});
+			var startDay = Number(startDay);
+			var lastDay = Number(lastDay);
+			this.dates.push(startDay);
+			this.dates.push(lastDay);
+			this.dates.push(currentMonth);
+			this.dates.push(lastMonth);
+			this.company = company;
+			this.dates.push(company);
 
-	console.log('company', startDay, currentMonth, lastDay, lastMonth);
-	if (startDay > lastDay) {
-	console.log('startDay > lastDay');	
-		for (var i = services.length - 1; i >= 0; i--) {
-	                if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
-	                {
-	         		   this.filteredServices.push(services[i]);
-	                } 
-	            }
-	}
-	if (startDay < lastDay) {
-		console.log('startDay < lastDay');
-			for (var i = services.length - 1; i >= 0; i--) {
-	                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
-	                {
-	         		   this.filteredServices.push(services[i]);
-	                } 
-	            }	
-	}
-	if (startDay == lastDay) {
-		console.log('startDay = lastDay');
-			for (var i = services.length - 1; i >= 0; i--) {
-	                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
-	                {
-	         		   this.filteredServices.push(services[i]);
-	                } 
-	            }	
-	}	
-	  filteredServices = this.filteredServices;
-	res.render('./admin/services', {
-		filteredServices,
-	  });
+			if (startDay > lastDay) {
+
+				for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }
+			}
+			if (startDay < lastDay) {
+				console.log('startDay < lastDay');
+					for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }	
+			}
+			if (startDay == lastDay) {
+				console.log('startDay = lastDay');
+					for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }	
+			}	
+			  filteredServices = this.filteredServices;
+			res.render('./admin/services', {
+				filteredServices,
+			  });
+		} catch (e){
+			console.log(e);
+			req.flash('error_msg', 'Ha ocurrido un error generando los servicios');
+			res.redirect('./admin');
+		}
 	}
 
 	// driver logic
 	if(driver){
-		var services = await Service.find({'meta.driver': driver, 'completed': true}).sort({"date.request": -1});
-		this.startDay = Number(startDay);
-		this.lastDay = Number(lastDay);
-		this.dates.push(startDay);
-		this.dates.push(lastDay);
-		this.dates.push(currentMonth);
-		this.dates.push(lastMonth);
-		this.driver = driver;
-		this.dates.push(driver);
+		try {
+			var services = await Service.find({'meta.driver': driver, 'completed': true}).sort({"date.request": -1});
+			this.startDay = Number(startDay);
+			this.lastDay = Number(lastDay);
+			this.dates.push(startDay);
+			this.dates.push(lastDay);
+			this.dates.push(currentMonth);
+			this.dates.push(lastMonth);
+			this.driver = driver;
+			this.dates.push(driver);
 
 
-		for (var i = services.length - 1; i >= 0; i--) {
-	        if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
-	            {
-	       		   this.filteredServices.push(services[i]);
-	            } 
-	        }
+			for (var i = services.length - 1; i >= 0; i--) {
+		        if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
+		            {
+		       		   this.filteredServices.push(services[i]);
+		            } 
+		        }
 
-		  filteredServices = this.filteredServices;
+			  filteredServices = this.filteredServices;
 
-		res.render('./admin/services', {
-			filteredServices,
-		  });
+			res.render('./admin/services', {
+				filteredServices,
+			  });
+		} catch(e){
+			console.log(e);
+			req.flash('error_msg', 'Ha ocurrido un error generando los servicios');
+			res.redirect('./admin');
+		}	
 	}
 }
 
@@ -182,7 +200,8 @@ exports.pdfGenerator = async (req, res, next) => {
 	if(this.driver){
 		var driver = this.driver;
 	}
-	const documentDefinition = pdf.createPDF(filteredServices, startDay,lastDay, currentMonth, lastMonth, company, driver);
+	try {
+	const documentDefinition = await pdf.createPDF(filteredServices, startDay,lastDay, currentMonth, lastMonth, company, driver);
 	const pdfDoc = pdfMake.createPdf(documentDefinition);
         
         pdfDoc.getBase64((data)=>{
@@ -195,6 +214,11 @@ exports.pdfGenerator = async (req, res, next) => {
             const download = Buffer.from(data.toString('utf-8'), 'base64');
             res.end(download);
         })
+    } catch(e){
+    	console.log(e);
+		req.flash('error_msg', 'Ha ocurrido un error generando los servicios');
+		res.redirect('./admin/services');
+    }    
 
 
 }

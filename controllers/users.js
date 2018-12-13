@@ -61,7 +61,7 @@ exports.registerCompany = (req, res) => {
 						if (err) throw err;
 						console.log(user);
 					});
-         		req.flash('success_msg', 'Registro exitoso');
+         		  req.flash('success_msg', 'Registro exitoso');
 					res.redirect('/admin');
 				}
 			});
@@ -142,7 +142,14 @@ exports.registerDriver = (req, res) => {
 
 exports.deleteUser = async (req, res)=> {
 	const { id } = req.params;
-	await User.remove({_id: id});
-	req.flash('success_msg', 'Usuario Borrado exitosamente');
-	res.redirect('/admin');
+	try{
+		await User.remove({_id: id});
+		req.flash('success_msg', 'Usuario Borrado exitosamente');
+		res.redirect('/admin');
+	}
+	catch(e) {
+		req.flash('error_msg', 'Ocurrio un error con la base de datos');
+		console.log(e);
+		res.redirect('/admin');
+	}
 }

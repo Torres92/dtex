@@ -12,20 +12,26 @@ const Service = require('../models/service');
 // Obteniendo Servicios COMPANY ROUTE
 router.get('/', isCompany, nocache, async (req, res, next) => {
   const { name } = res.locals.user;
-  const services = await Service.find({"meta.applicant": name, "available": true}).sort({"date.request": -1});
-  const seInProcess = await Service.find({"meta.applicant": name, "available": false, "completed": false }).sort({"date.request": -1});
-  const seFinished = await Service.find({"meta.applicant": name, "available": false, "completed": true }).sort({"date.request": -1});
-  const selength = services.length;
-  const proclength = seInProcess.length
-  const finlength = seFinished.length;
-  res.render('./company/company',{
-    services,
-    seInProcess,
-    seFinished,
-    selength,
-    proclength,
-    finlength
-  });
+  try {
+    const services = await Service.find({"meta.applicant": name, "available": true}).sort({"date.request": -1});
+    const seInProcess = await Service.find({"meta.applicant": name, "available": false, "completed": false }).sort({"date.request": -1});
+    const seFinished = await Service.find({"meta.applicant": name, "available": false, "completed": true }).sort({"date.request": -1});
+    const selength = services.length;
+    const proclength = seInProcess.length
+    const finlength = seFinished.length;
+    res.render('./company/company',{
+      services,
+      seInProcess,
+      seFinished,
+      selength,
+      proclength,
+      finlength
+    });
+  } catch(e) {
+    console.log(e);
+    req.flash('error_msg', 'Ha ocurrido con la base de datos');
+    res.render('./404');
+  }
 });
 
 

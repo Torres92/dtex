@@ -1,7 +1,7 @@
 
 
 <div class="container">
- <h1>Bienvenido {{ user.role }} {{ user.name }}</h1>
+ <h1>Bienvenido {{ user.role }} <p class="text-uppercase">{{ user.name }}</p></h1>
 </div>  
 <hr>
 
@@ -31,10 +31,10 @@
           </div>
           <div class="card-body">
                   <form method="post" action="/company/add/{{ user.name }}">
-                    <h3 class="lead text-center mb-3"><strong>DATOS ORIGEN</strong></h3>
+                    <h3 class="lead text-center mb-4"><strong>DATOS ORIGEN</strong></h3>
                     <div class="form-group">
-                      <label>Lugar de recojo: (Dirección, Distrito)</label><br><br>
-                      <textarea class="form-control" name="ori" id="" cols="80"placeholder="Sea lo más especifico por favor" required></textarea>
+                      <label for="oriRe">Lugar de recojo: (Dirección, Distrito)</label><br><br>
+                      <textarea class="form-control" name="ori" id="oriRe" cols="80"placeholder="Sea lo más especifico por favor" required></textarea>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
@@ -48,9 +48,9 @@
                     </div>
 
                     <hr class="my-4"> 
-                      <h3 class="lead text-center mb-3"><strong>DATOS DESTINO</strong></h3>
+                      <h3 class="lead text-center mb-4"><strong>DATOS DESTINO</strong></h3>
                      <div class="form-group">
-                      <label>Sitio de entrega: (Dirección, Distrito)</label><br><br>
+                      <label for="destEnr">Sitio de entrega: (Dirección, Distrito)</label><br><br>
                       <textarea name="dest" id="" class="form-control" cols="80" placeholder="Sea lo más especifico por favor" required></textarea>
                     </div>
 
@@ -67,10 +67,15 @@
 
                     <hr class="my-4">
                     
-                    <h3 class="lead text-center mb-3"><strong>DESCRIPCION DEL SERVICIO</strong></h3>
+                    <h3 class="lead text-center mb-4"><strong>DESCRIPCION DEL SERVICIO</strong></h3>
                     <div class="form-group">
-                      <label>Escriba una descripción del producto a enviar</label><br><br>
+                      <label>Escriba una descripción del producto a enviar</label><br>
                       <textarea name="desc" id=""  cols="80" class="form-control" placeholder="Sea lo más especifico por favor" required></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="deliverDate">Fecha de entrega:</label>
+                      <input type="date" class="form-control" id="deliverDate" name="deliverDate">
+                      <p class="text-muted">Las entregas se realizarán al día siguiente de la fecha de solicitud</p>
                     </div>
                     <button type="submit" onclick="usure()" class="btn btn-primary btn-block">Solicitar</button>
                   </form>

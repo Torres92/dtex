@@ -22,50 +22,7 @@
     <div class="tab-pane contenedor2 fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         {{#if assigned}}
               <div class="row">
-                          {{#each assigned}}<!--
-                          <div class="card services col-md-5 col-lg-3 col-sm-5 mx-auto mt-4 mb-4" >
-                            <img class="card-img-top" src="/images/{{meta.applicant}}.jpg" alt="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title">Servicio en proceso</h5>
-
-                               <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><strong>{{ meta.applicant }}</strong></li>
-                                <li class="list-group-item"><strong>{{ ori }}</strong>  <br>
-                                  <strong>A NOMBRE DE:</strong> {{oriName}} <br>
-                                  <strong>TLF:</strong>{{oriTlf}}
-                                </li>
-                                <li class="list-group-item">
-                                  <strong>{{ dest }}</strong> <br>
-                                  <strong>A NOMBRE DE:</strong> {{destName}} <br>
-                                  <strong>TLF:</strong> {{destTlf}}
-                                </li>
-                                 <li class="list-group-item"><strong>{{ desc }}</strong></li>
-                                 <li class="list-group-item">Costo: s/{{driverPrice.total}}</li>
-                              </ul>
-
-
-                            {{#if meta.driver}}
-                                  {{#if status}} 
-                                  <a href="/driver/turn/{{_id}}" class="btn btn-success">
-                                  Tomar</a>
-                                  {{else}}
-                                  {{ meta.hrRe }}
-                                  {{/if}}
-                            {{/if}}
-
-                             {{#if status }}
-                                Entregar
-                              {{else}}  
-                               {{#if completed}}
-                                 {{ meta.hrEn }}
-                               {{else}}
-                                  <a href="/driver/edit/{{_id}}" class="btn btn-success">
-                                  Entregar</a>
-                               {{/if}}
-                              {{/if}}
-
-                        </div>
-                    </div>-->
+                          {{#each assigned}}
                       <div class="col-md-6 col-lg-3 col-sm-8 mx-auto mt-4 mb-4">
                         <div class="card">
                           <img class="card-img-top" src="/images/{{meta.applicant}}.jpg" alt="Card image cap">
@@ -74,7 +31,7 @@
                               Servicio en proceso
                             </h4>
                             <p class="lead">{{desc}}</p>
-                            <p class="lead">Fecha limite entrega:{{deliverDate}}</p>
+                            <p class="lead"><strong>Fecha limite entrega:{{deliverDate}}</strong></p>
                             
                             {{#if meta.driver}}
                                   {{#if status}}
@@ -105,90 +62,7 @@
 
                    {{/each}}
                 </div> 
-<!--
-          <table class="table table-bordered table-hover table-responsive">
-                      <thead>
-                        <tr>
 
-                          <th>Fecha</th>
-                          <th>Empresa</th>
-                          <th>Motorizado</th>
-                          <th>Origen</th>
-                          <th>Llegada</th>
-                          <th>Descripcion</th>
-                          <th>Recojo</th>
-                          <th>Entrega</th>
-                          <th>Costo del servicio</th>
-                          <th>Costo Adicional</th>
-                          <th>Total</th>
-
-                        </tr>
-                      </thead>
-                      <tbody>
-               
-                          {{#each assigned}}
-
-                            <tr>
-                              <td>{{date.formattedDate}}</td>
-                              <td>{{ meta.applicant }}</td>
-                              <td>{{meta.driver}}</td>
-                              <td>{{ ori }} <br>
-                                  A NOMBRE DE:{{oriName}} <br>
-                                  TLF:{{oriTlf}}
-                              </td>
-                              <td>{{ dest }} <br>
-                                  A NOMBRE DE:{{destName}} <br>
-                                  TLF:{{destTlf}}
-                              </td>
-                              <td>{{ desc }}</td>
-                              <td>
-                            {{#if meta.driver}}
-                              {{#if status}} 
-                              <a href="/driver/turn/{{_id}}" class="btn btn-success">
-                              Tomar</a>
-                              {{else}}
-                              {{ meta.hrRe }}
-                              {{/if}}
-                            {{else}}
-                              Tomar
-                            {{/if}}
-                              </td>
-                         
-                              <td>  
-                              {{#if status }}
-                                Entregar
-                              {{else}}  
-                               {{#if completed}}
-                                 {{ meta.hrEn }}
-                               {{else}}
-                                  <a href="/driver/edit/{{_id}}" class="btn btn-success">
-                                  Entregar</a>
-                               {{/if}}
-                              {{/if}} 
-                              </td>
-                              <td>s/{{driverPrice.basic}}</td>
-                              <td>
-                              {{#if comment.contenido}}
-                                s/{{driverPrice.charge}}
-                              {{else}}
-                                No hay observaciones para este servicio      
-                              {{/if}}
-                              </td>
-                              <td>s/{{driverPrice.total}}</td>
-                            </tr>
-                          {{/each}}
-                      </tbody>
-                    </table>
-
-      
-                        {{else}}
-
-                          <div class="container">
-                            <h4>No hay servicios asignados hasta este momento</h4>
-                          </div>
-
-                        {{/if}}
-                      -->
       </div>
 
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">

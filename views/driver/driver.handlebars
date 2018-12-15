@@ -1,6 +1,6 @@
 
 <div class="container">
-<h1>Bienvenido {{ user.name }} </h1>
+<h1>Bienvenido <span class="text-uppercase">{{ user.name }}</span> </h1>
 </div>  
 
 <hr>
@@ -31,7 +31,7 @@
                               Servicio en proceso
                             </h4>
                             <p class="lead">{{desc}}</p>
-                            <p class="lead"><strong>Fecha limite entrega:{{deliverDate}}</strong></p>
+                            <p class="lead"><strong>Fecha limite entrega: {{deliverDate}}</strong></p>
                             
                             {{#if meta.driver}}
                                   {{#if status}}

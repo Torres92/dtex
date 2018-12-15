@@ -129,7 +129,6 @@ exports.filterServices = async (req, res, next)=> {
 			            }
 			}
 			if (startDay < lastDay) {
-				console.log('startDay < lastDay');
 					for (var i = services.length - 1; i >= 0; i--) {
 			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
 			                {
@@ -138,7 +137,6 @@ exports.filterServices = async (req, res, next)=> {
 			            }	
 			}
 			if (startDay == lastDay) {
-				console.log('startDay = lastDay');
 					for (var i = services.length - 1; i >= 0; i--) {
 			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
 			                {
@@ -171,12 +169,31 @@ exports.filterServices = async (req, res, next)=> {
 			this.dates.push(driver);
 
 
-			for (var i = services.length - 1; i >= 0; i--) {
-		        if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
-		            {
-		       		   this.filteredServices.push(services[i]);
-		            } 
-		        }
+			if (startDay > lastDay) {
+
+				for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }
+			}
+			if (startDay < lastDay) {
+					for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }	
+			}
+			if (startDay == lastDay) {
+					for (var i = services.length - 1; i >= 0; i--) {
+			                if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+			                {
+			         		   this.filteredServices.push(services[i]);
+			                } 
+			            }	
+			}
 
 			  filteredServices = this.filteredServices;
 

@@ -79,7 +79,7 @@ exports.createService = async (req, res) => {
 					  from: 'aleph2445@gmail.com',
 					  subject: 'NUEVA SOLICITUD DE SERVICIOS',
 					  text: 'and easy to do anywhere, even with Node.js',
-					  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+					  html: '<strong>TIENES UNAS NUEVA SOLICITUD DE SERVICIOS, logeate para revisarlas <a href="deliveryexpresstotal.herokuapp.com">Iniciar Sesión</a> </strong>',
 				};
 				sgMail.send(msg);
 				console.log('message sent');
@@ -201,8 +201,8 @@ exports.pdfGenerator = async (req, res, next) => {
 		var driver = this.driver;
 	}
 	try {
-	const documentDefinition = await pdf.createPDF(filteredServices, startDay,lastDay, currentMonth, lastMonth, company, driver);
-	const pdfDoc = pdfMake.createPdf(documentDefinition);
+		const documentDefinition = await pdf.createPDF(filteredServices, startDay,lastDay, currentMonth, lastMonth, company, driver);
+		const pdfDoc = pdfMake.createPdf(documentDefinition);
         
         pdfDoc.getBase64((data)=>{
             res.writeHead(200,
@@ -216,8 +216,8 @@ exports.pdfGenerator = async (req, res, next) => {
         })
     } catch(e){
     	console.log(e);
-		req.flash('error_msg', 'Ha ocurrido un error generando los servicios');
-		res.redirect('./admin/services');
+		req.flash('error_msg', 'Ha ocurrido un error generando el pdf');
+		res.redirect('./admin');
     }    
 
 

@@ -29,7 +29,7 @@ router.get('/', isCompany, nocache, async (req, res, next) => {
     });
   } catch(e) {
     console.log(e);
-    req.flash('error_msg', 'Ha ocurrido con la base de datos');
+    req.flash('error_msg', 'Ha ocurrido un error con la base de datos');
     res.render('./404');
   }
 });

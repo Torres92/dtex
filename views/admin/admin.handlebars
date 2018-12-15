@@ -149,7 +149,14 @@
 
                       </table>
         {{else}}
-            <strong> NO HAY SOLICITUDES DE SERVICIOS SIN ASIGNAR ( REVISA LA PESTAÑA DE LOS SERVICIOS EN PROCESO )</strong>
+          <div class="col-md-4 mx-auto">
+              <div class="card">
+                <div class="container alert alert-danger">
+                  <strong> NO HAY SOLICITUDES DE SERVICIOS SIN ASIGNAR ( REVISA LA PESTAÑA DE LOS SERVICIOS EN PROCESO )</strong>
+                </div>
+              </div>
+            </div>
+            
         {{/if}}
               
 
@@ -238,7 +245,14 @@
 
             </table>
             {{else}}
-              NO HAY SERVICIOS REGISTRADOS HASTA EL MOMENTO
+            <div class="col-md-4 mx-auto">
+              <div class="card">
+                <div class="container alert alert-danger">
+                  <strong> NO HAY SERVICIOS EN PROCESOS HASTA EL MOMENTO</strong>
+                </div>
+              </div>
+            </div>
+              
             {{/if}}
 
     </div>
@@ -317,7 +331,15 @@
 
             </table>
             {{else}}
-              NO HAY SERVICIOS REGISTRADOS HASTA EL MOMENTO
+            <div class="col-md-4 mx-auto">
+              <div class="card">
+                <div class="container alert alert-danger">
+                  <strong> NO HAY SERVICIOS REGISTRADOS HASTA EL MOMENTO</strong>
+                </div>
+              </div>
+            </div>
+
+            
             {{/if}}
 
     </div>    

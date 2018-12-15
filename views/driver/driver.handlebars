@@ -22,7 +22,7 @@
     <div class="tab-pane contenedor2 fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         {{#if assigned}}
               <div class="row">
-                          {{#each assigned}}
+                          {{#each assigned}}<!--
                           <div class="card services col-md-5 col-lg-3 col-sm-5 mx-auto mt-4 mb-4" >
                             <img class="card-img-top" src="/images/{{meta.applicant}}.jpg" alt="Card image cap">
                             <div class="card-body">
@@ -65,7 +65,44 @@
                               {{/if}}
 
                         </div>
-                    </div>
+                    </div>-->
+                      <div class="col-md-6 col-lg-3 col-sm-8 mx-auto mt-4 mb-4">
+                        <div class="card">
+                          <img class="card-img-top" src="/images/{{meta.applicant}}.jpg" alt="Card image cap">
+                          <div class="card-body">
+                            <h4 class="card-title d-flex text-center justify-content-between align-items-center">
+                              Servicio en proceso
+                            </h4>
+                            <p>{{desc}}</p>
+                            
+                            {{#if meta.driver}}
+                                  {{#if status}}
+                                  <p class="lead"><strong>Origen:</strong> {{ ori }}</p>
+                                  <p class="lead"><strong>Nombre de emisor:</strong> {{ oriName }}</p>
+                                  <p class="lead"><strong>Tlf de emisor:</strong> {{ oriTlf }}</p> 
+                                  <a href="/driver/turn/{{_id}}" class="btn btn-success btn-block btn-sm">
+                                  Tomar</a>
+                                  {{else}}
+                                  {{ meta.hrRe }}
+                                  {{/if}}
+                            {{/if}}
+                             {{#if status }}
+                                Entregar
+                              {{else}}  
+                               {{#if completed}}
+                                 {{ meta.hrEn }}
+                               {{else}}
+                                  <p class="lead"><strong>Destino:</strong> {{ dest }}</p>
+                                  <p class="lead"><strong>Nombre de receptor:</strong> {{ destName }}</p>
+                                  <p class="lead">Tlf de receptor: {{ destTlf }}</p>
+                                  <a href="/driver/edit/{{_id}}" class="btn btn-success btn-block btn-sm">
+                                  Entregar</a>
+                               {{/if}}
+                              {{/if}}
+                          </div>
+                        </div>
+                      </div> 
+
                    {{/each}}
                 </div> 
 <!--
@@ -304,7 +341,7 @@
                               No Hay observaciones para este servicio
                           {{/if}} 
                         </td>
-                        <td>s/{{driverPrice.basic}}</td>
+                        <td>s/{{driverPrice.total}}</td>
                       </tr>
                     {{/each}}
                 </tbody>

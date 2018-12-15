@@ -73,7 +73,8 @@
                             <h4 class="card-title d-flex text-center justify-content-between align-items-center">
                               Servicio en proceso
                             </h4>
-                            <p>{{desc}}</p>
+                            <p class="lead">{{desc}}</p>
+                            <p class="lead">Fecha limite entrega:{{deliverDate}}</p>
                             
                             {{#if meta.driver}}
                                   {{#if status}}
@@ -87,7 +88,6 @@
                                   {{/if}}
                             {{/if}}
                              {{#if status }}
-                                Entregar
                               {{else}}  
                                {{#if completed}}
                                  {{ meta.hrEn }}

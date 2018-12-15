@@ -122,14 +122,14 @@ router.get('/unassign/:id', async (req, res)=> {
 router.post('/obs/:id', async (req, res)=> {
 	const { id } = req.params;
 	const { comment } = req.body;
-	const { raise } = req.body
-	const charge = Number(raise).toFixed(2);
+	const { raise } = req.body;
 	const service = await Service.findOne({_id: id});
 	service.comment.contenido = comment;
-	service.comment.charge = charge;
-	service.comment.newPrice = Number(charge + 10).toFixed(2);
-	service.driverPrice.charge = Number(charge * 0.7).toFixed(2);
-	service.driverPrice.total = (service.comment.newPrice * 0.7).toFixed(2); 
+	service.comment.charge = Number(raise).toFixed(2);;
+	const newPrice = Number(raise) + 10;
+	service.comment.newPrice = newPrice;
+	service.driverPrice.charge = (Number(raise) * 0.7).toFixed(2);
+	service.driverPrice.total = (service.comment.newPrice * 0.7).toFixed(2);
 	await service.save();
    res.redirect('/admin');
 });

@@ -28,7 +28,7 @@ module.exports.createPDF = function(filteredServices, startDay, lastDay, current
      }
 
      if(driver) {
-       var name = driver;
+       var name = driver.toUpperCase();
        var total = 0;
        filteredServices.forEach(service => {
           service.driverPrice.total = parseFloat(Math.round(service.driverPrice.total * 100) / 100).toFixed(2);
@@ -46,134 +46,86 @@ module.exports.createPDF = function(filteredServices, startDay, lastDay, current
             content: [
                 {
                   columns: [
-                    {width: 200,text: 'DT EXPRESS', style: 'header'},
                     [
-                            {
+                        {
+                                      // star-sized columns fill the remaining space
+                                      // if there's more than one star-column, available width is divided equally
+                                      width: '*',
+                                      style: 'header',
+                                      text: 'DT EXPRESS'
+ 
+                        },
+                        {
+                                      // star-sized columns fill the remaining space
+                                      // if there's more than one star-column, available width is divided equally
+                                      width: 'auto',
+                                      style: 'important',
+                                      text: 'REVIN SERVICIOS GENERALES SAC'
+                        },
+                        {
                                 columns: [
                                     {
                                       // star-sized columns fill the remaining space
                                       // if there's more than one star-column, available width is divided equally
                                       width: 'auto',
-                                      style: 'subheader',
-                                      text: 'Razón Social:'
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' ',
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
                                       style: 'important',
+                                      text: 'RUC:'
+                                    },
+                                    {
+                                      // star-sized columns fill the remaining space
+                                      // if there's more than one star-column, available width is divided equally
                                       width: 'auto',
-                                      text: 'REVIN SERVICIOS GENERALES SAC'
+                                      text: '26356'
                                     }
                                 ]
+                        },
+                        {
+                          
+                                      // star-sized columns fill the remaining space
+                                      // if there's more than one star-column, available width is divided equally
+                                      width: 'auto',
+                                      style: 'important',
+                                      text: 'Jr. Marco 313 U.POP TUPAC AMARU INDEPENDENCIA LIMA - LIMA'
+
+                        }
+
+
+                    ],
+                    [
+                            {
+                                      // fixed width
+                                      style: 'header',
+                                      width: 'auto',
+                                      alignment: 'right',
+                                      text: name
+                            },
+                            {
+                                      // star-sized columns fill the remaining space
+                                      // if there's more than one star-column, available width is divided equally
+                                      width: 'auto',
+                                      alignment: 'right',
+                                      text: 'Jr. Marco 313 U.POP TUPAC AMARU INDEPENDENCIA LIMA - LIMA'
+                                  
+                            },
+                            {
+                                      width: 'auto',
+                                      alignment: 'right',
+                                      text: 'dsasdasd@dfsdfs.com'
+                                   
                             },
                             {
                                 columns: [
                                     {
                                       // star-sized columns fill the remaining space
                                       // if there's more than one star-column, available width is divided equally
-                                      width: 'auto',
-                                      style: 'subheader',
+                                      width: '*',
+                                      alignment: 'right',
                                       text: 'RUC:'
                                     },
                                     {
                                       // fixed width
-                                      width: '*',
-                                      text: ' ',
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      style: 'important',
-                                      alignment: 'left',
-                                      width: 'auto',
-                                      text: '20603641966',
-                                    }
-                                ]
-                            },
-                            {
-                                columns: [
-                                    {
-                                      // star-sized columns fill the remaining space
-                                      // if there's more than one star-column, available width is divided equally
-                                      width: 'auto',
-                                      style: 'subheader',
-                                      text: 'Dirección:'
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' ',
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      style: 'important',
-                                      width: 'auto',
-                                      text: 'Jr. Marco 313 U.POP TUPAC AMARU INDEPENDENCIA LIMA - LIMA',
-                                    }
-                                ]
-                            },
-                            {
-                                columns: [
-                                    {
-                                      // star-sized columns fill the remaining space
-                                      // if there's more than one star-column, available width is divided equally
-                                      width: 'auto',
-                                      style: 'subheader',
-                                      text: 'Tlf:'
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' ',
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      width: '*',
-                                      text: ' '
-                                    },
-                                    {
-                                      // fixed width
-                                      style: 'important',
-                                      alignment: 'left',
-                                      width: 'auto',
+                                      alignment: 'right',
+                                      width: 100,
                                       text: '(01) 7721912'
                                     }
                                 ]
@@ -182,17 +134,17 @@ module.exports.createPDF = function(filteredServices, startDay, lastDay, current
                             {
                                 columns: [
                                     {
-                                      // star-sized columns fill the remaining space
-                                      // if there's more than one star-column, available width is divided equally
+                                      // fixed width
                                       width: '*',
-                                      style: 'subheader',
-                                      text: `Nombre: ${name}`
+                                      style: 'important',
+                                      text: ' '
                                     },
                                     {
                                       // fixed width
                                       width: 'auto',
                                       style: 'subheader',
-                                      text: 'Fecha:\n'
+                                      alignment:'right',
+                                      text: 'Fecha:\n\n'
                                     },
                                     {
                                       // fixed width
@@ -204,7 +156,7 @@ module.exports.createPDF = function(filteredServices, startDay, lastDay, current
                                     {
                                       // fixed width
                                       style: 'subheader',
-                                      alignment: 'left',
+                                      alignment: 'right',
                                       width: 'auto',
                                       text: 'hasta:'
                                     },

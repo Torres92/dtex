@@ -64,9 +64,11 @@ exports.createService = async (req, res) => {
 
 				await service.save();
 
+				console.log(service);
+
 				req.flash('success_msg', 'Servicio solicitado exitosamente');
 
-
+/*
 				
 				const msg = {
 					  "to": [{
@@ -82,7 +84,7 @@ exports.createService = async (req, res) => {
 					  html: '<strong>TIENES UNAS NUEVA SOLICITUD DE SERVICIOS, logeate para revisarlas <a href="deliveryexpresstotal.herokuapp.com">Iniciar Sesión</a> </strong>',
 				};
 				sgMail.send(msg);
-				console.log('message sent');
+				console.log('message sent');*/
 				res.redirect('/company');
 		} catch(e){
 			console.log(e);

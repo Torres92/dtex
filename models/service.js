@@ -12,7 +12,9 @@ const ServiceSchema = new Schema({
 				type: String
 			}
 	},
-	
+	deliverDate:{
+		type: String
+	},
 	ori: {
 		type: String,
 		required: [true, 'El lugar de recojo es necesario']

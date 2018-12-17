@@ -6,6 +6,19 @@
 <hr>
 
 <div class="contenedor">
+<div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg-dark p-4">
+        <a data-toggle="modal" data-target="#modalReporteCompany" class="dropdown-item text-center text-light" href="#">Por fecha</a>
+        <a class="dropdown-item text-center text-light" href="/company/allservices/{{ user.name }}">De todos los servicios</a>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>Genera reportes
+      </button>
+    </nav>
+  </div>  
 <nav class="nav nav-pills flex-column flex-sm-row nav-justified">
   <a class="flex-sm-fill text-sm-center nav-link active" id="pills-solicitud-tab" data-toggle="pill" href="#pills-solicitud" role="tab" aria-controls="pills-solicitud" aria-selected="true">Solicitud de servicios
 </a>
@@ -15,9 +28,7 @@
   <a class="flex-sm-fill text-sm-center nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Servicios En proceso
   <span class="badge badge-light">{{proclength}}</span>
 </a>
-  <a class="flex-sm-fill text-sm-center nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Resumen de servicios
-  <span class="badge badge-light">{{finlength}}</span>
-  </a>
+
 </nav>
 
 
@@ -209,77 +220,38 @@
 
   </div>
 
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-    {{#if seFinished}}
-    <table class="table table-dark table-bordered table-responsive">
-        <thead>
-          <tr>
-            <th scope="col">Fecha</th>
-            <th scope="col">Motorizado</th>
-            <th scope="col">Origen</th>
-            <th scope="col">Llegada</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Recojo</th>
-            <th scope="col">Entrega</th>
-            <th scope="col">Observación</th>
-            <th scope="col">Costo del servicio</th>
-            <th scope="col">Costo Adicional</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each seFinished}}
-            <tr>
-              <td scope="row">{{date.formattedDate}}</td>
-              <td>{{ meta.driver }} <br> DNI : {{meta.dni}} </td>
-              <td>{{ ori }}</td>
-              <td>{{ dest }}</td>
-              <td>{{ desc }}</td>
-              <td>
-                {{meta.hrRe}}
-              </td>
-              <td>
-                {{meta.hrEn}}
-              </td>
-              <td>
-                {{#if comment.contenido}}
-                  {{comment.contenido}}
-                {{else}}
-                  No hay observaciones para este servicio
-                {{/if}}  
-              </td>
-              <td>
-               s/{{price}}
-              </td>
-              <td>
-                {{#if comment.charge}}
-                {{comment.charge}}
-                {{else}}
-                s/0
-                {{/if}}
-              </td>
-              <td>
-                s/{{comment.newPrice}}
-              </td>
 
-            </tr>
-          {{/each}}
-        </tbody>
-      </table> 
-      {{else}}
-      <div class="container">
-        <div class="row">
-          <h4>NO HAY SERVICIOS COMPLETADOS HASTA EL MOMENTO</h4>
-        </div>
-      </div>  
-       {{/if}} 
-
-
-  </div>
 </div>
 
 
 </div>
+
+<!-- Modal reporte compañia -->
+        <div class="modal fade" id="modalReporteCompany" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reportes de servicios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+               <form action="/company/filter" method="post" >
+                  desde: <input type="number" min="1" name="startDay" max="31" required="">/<input type="number" name="currentMonth" min="1" max="12" required="">
+                  hasta: <input type="number" min="1" name="lastDay" max="31" required="">/<input type="number" name="lastMonth" min="1" max="12" required=""><br><br>
+                  <span class="text-light">dia/mes del cual quiere generar el reporte</span><br>
+                  <label for="companyId" >A nombre de:</label>
+                  <input type="text" id="companyId" class="form-control" name="company" placeholder="Nombre de tu compañia">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-primary" value="Generar">
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div> 
 
 
 

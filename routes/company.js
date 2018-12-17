@@ -34,6 +34,63 @@ router.get('/', isCompany, nocache, async (req, res, next) => {
   }
 });
 
+router.get('/allservices/:name', isCompany, async (req, res) =>{
+  const { name } = req.params;
+  const seFinished = await Service.find({"meta.applicant": name, "available": false, "completed": true }).sort({"date.request": -1});
+  res.render('./company/services', {
+    seFinished
+  });
+});
+
+router.post('/filter', isCompany, async (req, res) =>{
+  var { startDay, currentMonth, lastDay, lastMonth, company} = req.body;
+  console.log(startDay, currentMonth, lastDay, lastMonth, company);
+
+  var filteredServices = [];
+  try{
+      var services = await Service.find({'meta.applicant': company, 'completed': true}).sort({"date.request": -1});
+    } catch(e){
+      console.log(e);
+      req.flash('error_msg', 'Ha ocurrido un error generando los servicios');
+      res.redirect('./company');
+    }
+
+      var startDay = Number(startDay);
+      var lastDay = Number(lastDay);
+
+      if (startDay > lastDay) {
+
+        for (var i = services.length - 1; i >= 0; i--) {
+                      if((services[i].date.day >= startDay && services[i].date.month == currentMonth) || (services[i].date.day <= lastDay && services[i].date.month == lastMonth ))
+                      {
+                     filteredServices.push(services[i]);
+                      } 
+                  }
+      }
+      if (startDay < lastDay) {
+          for (var i = services.length - 1; i >= 0; i--) {
+                      if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+                      {
+                     filteredServices.push(services[i]);
+                      } 
+                  } 
+      }
+      if (startDay == lastDay) {
+          for (var i = services.length - 1; i >= 0; i--) {
+                      if((services[i].date.day >= startDay && services[i].date.month >= currentMonth) && (services[i].date.day <= lastDay && services[i].date.month <= lastMonth ))
+                      {
+                     filteredServices.push(services[i]);
+                      } 
+                  } 
+      } 
+
+      console.log(filteredServices);
+      res.render('./company/services', {
+        filteredServices,
+        });
+
+});
+
 
 // Obteniendo Servicios COMPANY ROUTE
 router.get('/add', isCompany, (req, res, next) => {

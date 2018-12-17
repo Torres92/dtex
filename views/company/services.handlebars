@@ -1,0 +1,159 @@
+ {{#if seFinished}}
+    <table class="table table-dark table-bordered table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Motorizado</th>
+            <th scope="col">Origen</th>
+            <th scope="col">Llegada</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Recojo</th>
+            <th scope="col">Entrega</th>
+            <th scope="col">Observación</th>
+            <th scope="col">Costo del servicio</th>
+            <th scope="col">Costo Adicional</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each seFinished}}
+            <tr>
+              <td scope="row">{{date.formattedDate}}</td>
+              <td>{{ meta.driver }} <br> DNI : {{meta.dni}} </td>
+              <td>{{ ori }}</td>
+              <td>{{ dest }}</td>
+              <td>{{ desc }}</td>
+              <td>
+                {{meta.hrRe}}
+              </td>
+              <td>
+                {{meta.hrEn}}
+              </td>
+              <td>
+                {{#if comment.contenido}}
+                  {{comment.contenido}}
+                {{else}}
+                  No hay observaciones para este servicio
+                {{/if}}  
+              </td>
+              <td>
+               s/{{price}}
+              </td>
+              <td>
+                {{#if comment.charge}}
+                {{comment.charge}}
+                {{else}}
+                s/0
+                {{/if}}
+              </td>
+              <td>
+                s/{{comment.newPrice}}
+              </td>
+
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>  
+       {{/if}} 
+
+  {{#if filteredServices }}
+      <div id="HTMLtoPDF">
+        <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Empresa</th>
+                <th>Motorizado</th>
+                <th>Origen</th>
+                <th>Llegada</th>
+                <th>Descripcion</th>
+                <th>Recojo</th>
+                <th>Entrega</th>
+                <th>Observación</th>
+                <th>Costo del servicio</th>
+                <th>Costo Adicional</th>
+                <th>Total</th>
+                <th>Acción</th>
+
+              </tr>
+            </thead>
+            <tbody>
+               {{#each filteredServices}}
+                
+                <tr>
+                  <td>{{date.formattedDate}}</td>
+                  <td>{{ meta.applicant }}</td>
+                  <td>
+                    {{#if meta.driver}}
+                      {{meta.driver}} <br>
+                      DNI: {{meta.dni}}
+                      {{#if status }}
+                        {{#unless completed}}
+                        <a href="/admin/unassign/{{_id}}" class="btn btn-danger" >Desasignar</a>
+                        {{/unless}}
+                      {{/if}}
+                    {{else}}
+                      <form method="post" action="/admin/assign/{{_id}}"> 
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Asigna un conductor</label>
+                          <select class="form-control" name="driver" id="exampleFormControlSelect1">
+                            {{#each ../dusers}}
+                            <option>{{name}}</option>
+                            {{/each}}
+                          </select>
+                        </div>
+                        <div class="right-w3l">
+                          <input type="submit" class="form-control" value="Asignar">
+                        </div>
+                      </form>
+                    {{/if}}
+                  </td>
+                  <td>{{ ori }}</td>
+                  <td>{{ dest }}</td>
+                  <td>{{ desc }}</td>
+                  <td>
+                      {{#if status }}
+                      En proceso
+                      {{else}}
+                       {{ meta.hrRe}}
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if completed }}
+                       {{ meta.hrEn}}
+                      {{else}}
+                      En proceso
+                      {{/if}}
+                  </td>
+                  <td>
+                      {{#if comment.contenido}}
+                        {{comment.contenido}}
+                      {{else}}
+                          Sin observaciones para este servicio 
+                      {{/if}}
+                  </td>
+                  <td>{{price}}</td>
+                  {{#if comment.contenido}}
+                    <td>+ s/{{comment.charge}}</td>
+                    {{else}}
+                      <td> + s/0 </td>
+                    {{/if}}
+
+
+                    <!-- PRECIO TOTAL -->
+                    <td>{{comment.newPrice}}</td>   
+                    <td>
+                     
+                      {{#if status }}
+                      <a href="/admin/delete/{{_id}}" class="btn btn-danger" >Eliminar</a>
+                      {{else}}
+                       Este servicio ya no puede ser eliminado     
+                      {{/if}}
+                    </td>
+                </tr>
+              {{/each}}
+            </tbody>
+
+          </table>
+        </div> 
+    {{/if}}     
